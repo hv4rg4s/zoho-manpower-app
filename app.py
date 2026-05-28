@@ -69,42 +69,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
-#  LOGIN
-# ─────────────────────────────────────────────
-def check_login():
-    if st.session_state.get("autenticado"):
-        return True
 
-    st.markdown("""
-    <div style="max-width:380px;margin:3rem auto 0;text-align:center">
-        <div style="font-size:3rem;margin-bottom:0.5rem">💙</div>
-        <h1 style="font-size:1.8rem;font-weight:700;color:#880E4F;margin-bottom:0.2rem">Masivo Blue</h1>
-        <p style="font-size:13px;color:#C2185B;margin-bottom:2rem">Ingresa la contraseña para continuar</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        password = st.text_input("Contraseña", type="password",
-                                  label_visibility="collapsed",
-                                  placeholder="Contraseña de acceso")
-        ingresar = st.button("Ingresar", use_container_width=True)
-
-        if ingresar:
-            app_password = st.secrets.get("APP_PASSWORD", "")
-            if not app_password:
-                st.error("APP_PASSWORD no configurado.")
-            elif password == app_password:
-                st.session_state["autenticado"] = True
-                st.rerun()
-            else:
-                st.error("Contraseña incorrecta.")
-
-    return False
-
-if not check_login():
-    st.stop()
 
 # ─────────────────────────────────────────────
 #  CREDENCIALES
